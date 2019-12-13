@@ -40,6 +40,7 @@ public class StartingActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                assert account !=null;
                 firebaseAuthWithGoogle(account);
             } catch (Exception e) {
                 // Google Sign In failed, update UI appropriately
@@ -54,13 +55,14 @@ public class StartingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
 
-        signInButton=(SignInButton)findViewById(R.id.signinButton);
-        loginButton =(Button) findViewById(R.id.loginButton);
-        registerButton = (Button) findViewById(R.id.registerButton);
+        signInButton=findViewById(R.id.signinButton);
+        loginButton = findViewById(R.id.loginButton);
+        registerButton = findViewById(R.id.registerButton);
         GoogleSignInOptions gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
          mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
          mAuth=FirebaseAuth.getInstance();
+         mAuth.signOut();
 
          /*if(mAuth.getCurrentUser()!=null){
              Intent intent= new Intent(getApplicationContext(),MainActivity.class);

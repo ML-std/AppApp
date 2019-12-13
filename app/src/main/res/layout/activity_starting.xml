@@ -16,14 +16,14 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerButton"></com.google.android.gms.common.SignInButton>
+        app:layout_constraintTop_toBottomOf="@+id/registerButton"/>
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="LOGIN"
+        android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:layout_height="71dp"
         android:layout_marginTop="40dp"
         android:background="#6162B1"
-        android:text="WELCOME!"
+        android:text="@string/welcome"
         android:textColor="#690E0E"
         android:textSize="36sp"
         android:textStyle="bold|italic"
@@ -47,7 +47,7 @@
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REGISTER"
+        android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -61,7 +61,7 @@
         android:layout_height="176dp"
         android:layout_marginTop="408dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        tools:ignore="ContentDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/injured" />
