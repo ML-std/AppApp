@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">AppApp</string>
-    <string name="emailHint">email</string>
-    <string name="passwordHint">password</string>
-    <string name="loginHint">login</string>
     <string name="okHint">OK!</string>
-    <string name="id_numberHint">ID number</string>
     <string name="name">name</string>
     <string name="surname">surname</string>
     <string name="mail">mail</string>
     <string name="password">password</string>
     <string name="login">login</string>
     <string name="email">email</string>
-    <string name="welcome">welcome!</string>
+    <string name="welcome">Welcome!</string>
     <string name="register">register</string>
+    <string name="id_number">Id Number</string>
+    <string name="make_an_appointment">Make an Appointment</string>
+    <string name="cancel_an_appointment">Cancel an Appointment</string>
+    <string name="postpone_an_appointment">Postpone an Appointment</string>
 </resources>

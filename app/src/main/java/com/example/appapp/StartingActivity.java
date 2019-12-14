@@ -62,11 +62,10 @@ public class StartingActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
          mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
          mAuth=FirebaseAuth.getInstance();
-         mAuth.signOut();
 
-         /*if(mAuth.getCurrentUser()!=null){
+         if(mAuth.getCurrentUser()!=null){
              Intent intent= new Intent(getApplicationContext(),MainActivity.class);
-             startActivity(intent);}*/
+             startActivity(intent);}
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {

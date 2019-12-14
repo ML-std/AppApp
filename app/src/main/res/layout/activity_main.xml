@@ -11,7 +11,39 @@
         android:layout_width="345dp"
         android:layout_height="66dp"
         android:layout_marginTop="32dp"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/makeButton"
+        android:layout_width="199dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/make_an_appointment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoText" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="199dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/cancel_an_appointment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/makeButton" />
+
+    <Button
+        android:id="@+id/postponeButton"
+        android:layout_width="199dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/postpone_an_appointment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cancelButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
