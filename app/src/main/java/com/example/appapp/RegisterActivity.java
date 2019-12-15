@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button idButton;
     EditText idText,nameText,surnameText,mailText,passwordText;
      static   String name,surname,mail,password;
-       static Map<String,Object> userMap;
+       static Map<String,Object> userMap= new HashMap<>();
     Long id;
 
     @Override
@@ -69,7 +69,6 @@ public class RegisterActivity extends AppCompatActivity {
                 System.out.println(id);
                 name = nameText.getText().toString();
                 surname = surnameText.getText().toString();
-                   userMap= new HashMap<>();
                 userMap.put("ID",id);
                 userMap.put("Name",name);
                 userMap.put("Surname",surname);
@@ -124,19 +123,6 @@ public class RegisterActivity extends AppCompatActivity {
                 ++count;
             }
             return count;
-        }
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 }

@@ -13,4 +13,6 @@
     <string name="make_an_appointment">Make an Appointment</string>
     <string name="cancel_an_appointment">Cancel an Appointment</string>
     <string name="postpone_an_appointment">Postpone an Appointment</string>
+    <string name="date">date</string>
+    <string name="date_picked">date picked</string>
 </resources>
