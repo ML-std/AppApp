@@ -10,9 +10,11 @@
     <string name="welcome">Welcome!</string>
     <string name="register">register</string>
     <string name="id_number">Id Number</string>
-    <string name="make_an_appointment">Make an Appointment</string>
-    <string name="cancel_an_appointment">Cancel an Appointment</string>
-    <string name="postpone_an_appointment">Postpone an Appointment</string>
+    <string name="make_an_appointment">MAKE AN APPOINTMENT</string>
+    <string name="cancel_an_appointment">CANCEL AN APPOINTMENT</string>
+    <string name="postpone_an_appointment">POSTPONE AN APPOINTMENT</string>
     <string name="date">date</string>
     <string name="date_picked">date picked</string>
+    <string name="cancel_the_appointment">CANCEL THE APPOINTMENT</string>
+    <string name="logout">logout</string>
 </resources>

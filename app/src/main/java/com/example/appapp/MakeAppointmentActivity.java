@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -39,7 +40,6 @@ public class MakeAppointmentActivity extends AppCompatActivity {
     FirebaseFirestore db;
     Button dateButton;
     static boolean flag=true;
-    static String tmpdoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                      Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                      startActivity(intent);
                  }
-                 else   Toast.makeText(getApplicationContext(),"invalid date",Toast.LENGTH_LONG).show();
+             //    else   Toast.makeText(getApplicationContext(),"invalid date",Toast.LENGTH_LONG).show();
 
              }
          });
@@ -73,6 +73,8 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                if (readData())
                 updateLabel();
 
 
@@ -101,33 +103,28 @@ public class MakeAppointmentActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    db.collection("users").document(user.getUid()).get()
-                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()){
-                                        DocumentSnapshot doc= task.getResult();
-                                      tmpdoc=  doc.get("Date").toString();
-                                        System.out.println(tmpdoc);
-                                    }
-                                }
-                            });
+                    try {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         System.out.println(document.get("Date").toString());
-
-                        if (!((document.get("Date").toString()).equals(tmpdoc))){
+                        flag=true;
+                        if (!((document.get("Date").toString()).equals(appointmentDate.getText().toString()))){
                             flag= true;
                         }
                         else {
                             flag=false;
+                            appointmentDate.setText(" ");
+                          //  Toast.makeText(getApplicationContext(),"invalid date",Toast.LENGTH_SHORT).show();
                             break;
                         }
+                    }}
+                    catch (Exception e){
+                        Toast.makeText(getApplicationContext(),"some problems occurred", Toast.LENGTH_LONG).show();
                     }
                 }
+                else Toast.makeText(getApplicationContext(),"omg",Toast.LENGTH_SHORT).show();
+
             }
         });
-
-
         return flag;
     }
     private void updateData(){
@@ -144,7 +141,6 @@ public class MakeAppointmentActivity extends AppCompatActivity {
 
                     }
                 });
-          // RegisterActivity.name= db.collection("users").document(user.getUid()).
         RegisterActivity.userMap.put("Date",appointmentDate.getText().toString());
         db.collection("users").document(user.getUid()).update(userMap);
     }

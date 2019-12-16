@@ -19,12 +19,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
     TextView infoText;
-    Button makeButton,cancelButton,postponeButton;
+    Button makeButton,cancelButton,postponeButton,logoutButton;
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseFirestore db;
     String info;
     static boolean willPostponed;
+    static String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,12 @@ public class MainActivity extends AppCompatActivity {
         makeButton = findViewById(R.id.makeButton);
         cancelButton = findViewById(R.id.cancelButton);
         postponeButton = findViewById(R.id.postponeButton);
+        logoutButton = findViewById(R.id.logoutButton);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         user = mAuth.getCurrentUser();
         willPostponed = false;
+
 
         DocumentReference documentReference = db.collection("users").document(user.getUid());
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -45,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+
                     if (document.exists()) {
                         System.out.println(document.getData());
                        String str = document.get("ID").toString();
+                       date=document.get("Date").toString();
                         System.out.println(str);
                         info= "welcome " +str;
                         infoText.setText(info);
@@ -81,9 +86,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(CancelAppointmentActivity.class);
             }
         });
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(StartingActivity.class);
+            }
+        });
 
 }
-    void startActivity(Class c){
+   private void startActivity(Class c){
         Intent intent = new Intent(getApplicationContext(),c);
         startActivity(intent);
 
