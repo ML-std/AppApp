@@ -1,3 +1,6 @@
+//the user needs to fill these blanks = name,surname,ID,mail and password.
+// If the user signed with google,then they don't need to fill mail and password.
+//When they clicked the button, their data will be added to their database.
 package com.example.appapp;
 
 import androidx.annotation.NonNull;
@@ -26,19 +29,18 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
-    Button idButton;
+    Button registerButton;
     EditText idText,nameText,surnameText,mailText,passwordText;
      static   String name,surname,mail,password;
-       static Map<String,Object> userMap= new HashMap<>();
+     static Map<String,Object> userMap= new HashMap<>();
     Long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        idButton = findViewById(R.id.idButton);
+        registerButton = findViewById(R.id.registerButton);
         nameText = findViewById(R.id.nameText);
         surnameText = findViewById(R.id.surnameText);
         idText = findViewById(R.id.idText);
@@ -47,21 +49,13 @@ public class RegisterActivity extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
         mAuth=FirebaseAuth.getInstance();
         user= mAuth.getCurrentUser();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (user==null){
-                   user= mAuth.getCurrentUser();
-                }
-            }
-        };
         if (user!=null){
             mailText.setText(user.getEmail());
             passwordText.setVisibility(View.INVISIBLE);
             mailText.setEnabled(false);
         }
 
-        idButton.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 id = Long.parseLong(idText.getText().toString());
@@ -69,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                 System.out.println(id);
                 name = nameText.getText().toString();
                 surname = surnameText.getText().toString();
+                //adding data to a HashMap.
                 userMap.put("ID",id);
                 userMap.put("Name",name);
                 userMap.put("Surname",surname);
@@ -90,7 +85,9 @@ public class RegisterActivity extends AppCompatActivity {
 
 //
 
-               else  {db.collection("users").document(user.getUid()).set(userMap)
+               else  {
+                   //adding HashMap to the database.
+                   db.collection("users").document(user.getUid()).set(userMap)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -116,8 +113,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
-    private long DigitCounter(long n){
-        {
+    private long DigitCounter(long n){ {
+        //method for counting ID number
             int count = 0;
             while (n != 0) {
                 n = n / 10;

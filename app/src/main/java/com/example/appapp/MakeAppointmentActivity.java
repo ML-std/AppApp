@@ -1,4 +1,9 @@
+//the user will select a date. If the date is invalid,the user will receive message and
+//they will not use the date which they have just picked. when they pick a valid date and
+// clicked the button,then their data will be updated and they will return to the MainActivity.
+
 package com.example.appapp;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
@@ -50,7 +55,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
          dateButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 if (readData()) {
+                 if (isValidDate()) {
                      updateData();
                      Toast.makeText(getApplicationContext(),"Appointment has been made",Toast.LENGTH_LONG).show();
                      Intent intent = new Intent(getApplicationContext(),MainActivity.class);
@@ -65,19 +70,21 @@ public class MakeAppointmentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDateTimePicker();
-                if (readData())
+                if (isValidDate())
                     updateLabel();
             }
         });
 
     }
     private void updateLabel() {
+        //updates the appointmentDate text with the date.
         String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
         appointmentDate.setText(sdf.format(myCalendar.getTime()));
   }
-    private boolean readData(){
-
+    private boolean isValidDate(){
+        //reads data and returns true if the date which is selected by the user is not matches with
+        //other dates. returns false if the date matches.
         db.collection("Dates").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -108,6 +115,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         return flag;
     }
     private void updateData(){
+        //updates database using a HashMap.
         Map<String,Object> dateMap = new HashMap<>();
         dateMap.put("Date",appointmentDate.getText().toString());
         db.collection("Dates").document(user.getUid()).set(dateMap)
@@ -123,19 +131,17 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         db.collection("users").document(user.getUid()).update(userMap);
     }
     public void showDateTimePicker(){
+        //shows date picker and restrains picking date from the past.
+        //updates the appointment date Text.
         final Calendar currentDate = Calendar.getInstance();
         date = Calendar.getInstance();
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-               // date.set(year, monthOfYear, dayOfMonth);
                 String tmp = dayOfMonth+"/"+monthOfYear+"/" + year;
-                if (readData())
-                appointmentDate.setText(tmp);
-
-                //use this date as per your requirement
-            }
+                if (isValidDate())
+                appointmentDate.setText(tmp); }
         };
         DatePickerDialog datePickerDialog = new  DatePickerDialog(MakeAppointmentActivity.this, dateSetListener, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH),   currentDate.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);

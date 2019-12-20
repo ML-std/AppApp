@@ -1,5 +1,9 @@
-package com.example.appapp;
+// the users starts with this page. if they are not logged in,they need to.
+// they can sign in with gmail or register with normal account.at both gmail and register buttons,
+//the user goes to the RegisterActivity.In login button,the user goes to the LoginActivity.
+//If the user is already exists, then they go to the MainActivity.
 
+package com.example.appapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +37,7 @@ public class StartingActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //overrided method for google sign-in.
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -50,7 +55,6 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
-
         signInButton=findViewById(R.id.signinButton);
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
@@ -87,10 +91,12 @@ public class StartingActivity extends AppCompatActivity {
 
     }
     private void signIn() {
+        //method for google sign-in
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 1);
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        //method for google sign-in
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

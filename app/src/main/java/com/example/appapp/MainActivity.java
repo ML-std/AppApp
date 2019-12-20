@@ -1,3 +1,6 @@
+//this is the activity that the user needs to choose what they want.
+//they can make appointment,cancel or postpone if they want by clicking the buttons.
+
 package com.example.appapp;
 
 import androidx.annotation.NonNull;
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
 }
    private void startActivity(Class c){
+        //to go to another activity.
         Intent intent = new Intent(getApplicationContext(),c);
         startActivity(intent);
 

@@ -1,3 +1,6 @@
+//the user logs in with their password and mail.
+//if they don't have data or it needs to be updated, it will updated.
+//when the user logs in, they go to MainActivity.
 package com.example.appapp;
 
 import androidx.annotation.NonNull;
