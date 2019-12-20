@@ -50,30 +50,34 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         day= currentDate.get(Calendar.DAY_OF_MONTH);
         month=currentDate.get(Calendar.MONTH);
         year = currentDate.get(Calendar.YEAR);
+        appointmentDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateTimePicker();
+                if (isValidDate()){
+                    updateLabel();
+                }
+                else if (!(appointmentDate.getText().toString().equals(""))){
+                    Toast.makeText(getApplicationContext(),"invalid date",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
 
 
          dateButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 if (isValidDate()) {
+
                      updateData();
                      Toast.makeText(getApplicationContext(),"Appointment has been made",Toast.LENGTH_LONG).show();
                      Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                      startActivity(intent);
                  }
-             else   Toast.makeText(getApplicationContext(),"invalid date",Toast.LENGTH_LONG).show();
-             }
          });
 
 
-        appointmentDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateTimePicker();
-                if (isValidDate())
-                    updateLabel();
-            }
-        });
 
     }
     private void updateLabel() {
@@ -99,7 +103,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                         }
                         else {
                             flag=false;
-                            appointmentDate.setText(" ");
+                            appointmentDate.setText("");
                            Toast.makeText(getApplicationContext(),"invalid date",Toast.LENGTH_SHORT).show();
                             break;
                         }
@@ -114,7 +118,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         });
         return flag;
     }
-    private void updateData(){
+    private boolean updateData(){
         //updates database using a HashMap.
         Map<String,Object> dateMap = new HashMap<>();
         dateMap.put("Date",appointmentDate.getText().toString());
@@ -129,6 +133,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                 });
         RegisterActivity.userMap.put("Date",appointmentDate.getText().toString());
         db.collection("users").document(user.getUid()).update(userMap);
+        return true;
     }
     public void showDateTimePicker(){
         //shows date picker and restrains picking date from the past.
@@ -146,6 +151,5 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new  DatePickerDialog(MakeAppointmentActivity.this, dateSetListener, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH),   currentDate.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
-
     }
 }

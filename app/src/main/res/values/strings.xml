@@ -18,4 +18,5 @@
     <string name="cancel_the_appointment">CANCEL THE APPOINTMENT</string>
     <string name="logout">logout</string>
     <string name="click_twice">click twice to get Dates</string>
+    <string name="confirm">CONFIRM</string>
 </resources>
