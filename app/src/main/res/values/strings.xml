@@ -17,4 +17,5 @@
     <string name="date_picked">date picked</string>
     <string name="cancel_the_appointment">CANCEL THE APPOINTMENT</string>
     <string name="logout">logout</string>
+    <string name="click_twice">click twice to get Dates</string>
 </resources>

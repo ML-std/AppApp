@@ -72,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                 userMap.put("ID",id);
                 userMap.put("Name",name);
                 userMap.put("Surname",surname);
+                userMap.put("Date","empty date");
                 if (user==null) {
                         mail = mailText.getText().toString();
                         password = passwordText.getText().toString();

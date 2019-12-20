@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:ems="10"
-        android:hint="@string/date"
+        android:hint="@string/click_twice"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
