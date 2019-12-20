@@ -34,18 +34,14 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == 1) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 assert account !=null;
                 firebaseAuthWithGoogle(account);
             } catch (Exception e) {
-                // Google Sign In failed, update UI appropriately
                 Log.w( "Google sign in failed", e);
-                // ...
             }
         }
     }
@@ -62,7 +58,6 @@ public class StartingActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
          mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
          mAuth=FirebaseAuth.getInstance();
-         //mAuth.signOut();
 
          if(mAuth.getCurrentUser()!=null){
              Intent intent= new Intent(getApplicationContext(),MainActivity.class);
@@ -96,25 +91,18 @@ public class StartingActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, 1);
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d( "firebaseAuthWithGoogle:" + acct.getId(),"lol");
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                          //  Toast.makeText(getApplicationContext(),"we did it bois",Toast.LENGTH_LONG).show();
                             Intent intent= new Intent(getApplicationContext(), RegisterActivity.class);
                             startActivity(intent);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(),"ah,fuck!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"some problems has occurred",Toast.LENGTH_LONG).show();
                         }
 
-                        // ...
                     }
                 });
     }

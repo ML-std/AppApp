@@ -49,13 +49,11 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            System.out.println("we have done it");
                             user=mAuth.getCurrentUser();
                             db.collection("users").document(user.getUid()).set(userMap)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                               @Override
                                                               public void onSuccess(Void aVoid) {
-                                                                  System.out.println("omg we really did it");
 
                                                                   Intent intent= new Intent(getApplicationContext(),MainActivity.class);
                                                                   startActivity(intent);

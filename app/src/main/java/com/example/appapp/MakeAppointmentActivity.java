@@ -72,7 +72,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
 
     }
     private void updateLabel() {
-        String myFormat = "dd/MM/yy"; //In which you need put here
+        String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
         appointmentDate.setText(sdf.format(myCalendar.getTime()));
   }

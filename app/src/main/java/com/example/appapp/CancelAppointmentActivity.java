@@ -40,7 +40,7 @@ public class CancelAppointmentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 db.collection("Dates").document(user.getUid()).delete();
                 DocumentReference docRef =db.collection("users").document(user.getUid());
-                RegisterActivity.userMap.put("Date"," -1");
+                RegisterActivity.userMap.put("Date","empty date");
                 docRef.update(RegisterActivity.userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

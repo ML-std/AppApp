@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
                         infoText.setText(info);
 
                     } else {
-                        Toast.makeText(getApplicationContext(),"oh fuck!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"some problems has occurred!",Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(),"oh fuck!2",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"some problems has occurred at task.",Toast.LENGTH_LONG).show();
                 }
             }
         });
