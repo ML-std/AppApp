@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     Button registerButton;
     EditText idText,nameText,surnameText,mailText,passwordText;
-     static   String name,surname,mail,password;
+     static   String  name,surname,mail,password;
      static Map<String,Object> userMap= new HashMap<>();
     Long id;
 
@@ -53,59 +54,96 @@ public class RegisterActivity extends AppCompatActivity {
             mailText.setText(user.getEmail());
             passwordText.setVisibility(View.INVISIBLE);
             mailText.setEnabled(false);
+
+            db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if ((task.isSuccessful())){
+                        DocumentSnapshot document = task.getResult();
+
+
+                        if (document.exists()){
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+
+                }
+            });
         }
+
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id = Long.parseLong(idText.getText().toString());
-                if (DigitCounter(id)==11){
+                if (idText.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "fill the ID", Toast.LENGTH_SHORT).show();
+                } else{
+
+                    id = Long.parseLong(idText.getText().toString());
                 System.out.println(id);
-                name = nameText.getText().toString();
-                surname = surnameText.getText().toString();
-                //adding data to a HashMap.
-                userMap.put("ID",id);
-                userMap.put("Name",name);
-                userMap.put("Surname",surname);
-                userMap.put("Date","empty date");
-                if (user==null) {
+                if (DigitCounter(id) == 11) {
+                    System.out.println(id);
+                    name = nameText.getText().toString();
+                    surname = surnameText.getText().toString();
+                    mail = mailText.getText().toString();
+                    password = passwordText.getText().toString();
+                    //adding data to a HashMap.
+                    if (name.equals("")) {
+                        Toast.makeText(getApplicationContext(), "fill the name", Toast.LENGTH_SHORT).show();
+                    } else if (surname.equals("")) {
+                        Toast.makeText(getApplicationContext(), "fill the surname", Toast.LENGTH_SHORT).show();
+
+                    } else if (mail.equals("")) {
+                        Toast.makeText(getApplicationContext(), "fill the mail", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if (password.equals("")) {
+                        Toast.makeText(getApplicationContext(), "fill the mail", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        userMap.put("ID", id);
+                    userMap.put("Name", name);
+                    userMap.put("Surname", surname);
+                    userMap.put("Date", "empty date");
+                    if (user == null) {
                         mail = mailText.getText().toString();
                         password = passwordText.getText().toString();
-                        mAuth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        mAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()){
-                                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                                if (task.isSuccessful()) {
+                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                     startActivity(intent);
 
                                 }
+                                else Toast.makeText(getApplicationContext(),"Invalid entry",Toast.LENGTH_SHORT).show();
                             }
                         });
-                }
+                    } else {
+                        //adding HashMap to the database.
+                        db.collection("users").document(user.getUid()).set(userMap)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                          @Override
+                                                          public void onSuccess(Void aVoid) {
+                                                              Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                              startActivity(intent);
+                                                          }
 
-//
-
-               else  {
-                   //adding HashMap to the database.
-                   db.collection("users").document(user.getUid()).set(userMap)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                      }
+                                ).addOnFailureListener(new OnFailureListener() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Intent intent= new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(intent);}
-
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Some Problems have occurred", Toast.LENGTH_LONG).show();
                             }
-                        ).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(),"Some Problems have occurred",Toast.LENGTH_LONG).show();
-                    }
-                });
+                        });
 
-            }}
-            else{
-                Toast.makeText(getApplicationContext(),"ID number should be 11 numbers",Toast.LENGTH_LONG).show();
+                    }}
+                } else {
+                    Toast.makeText(getApplicationContext(), "ID number should be 11 numbers", Toast.LENGTH_LONG).show();
                 }
+            }
             }
 
         });

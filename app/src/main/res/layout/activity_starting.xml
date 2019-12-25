@@ -11,30 +11,27 @@
         android:id="@+id/signinButton"
         android:layout_width="160dp"
         android:layout_height="62dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="56dp"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
     <TextView
         android:id="@+id/welcomeText"
-        android:layout_width="187dp"
-        android:layout_height="71dp"
+        android:layout_width="325dp"
+        android:layout_height="51dp"
         android:layout_marginTop="40dp"
-        android:background="#6162B1"
+        android:background="#FFFFFF"
         android:text="@string/welcome"
         android:textColor="#690E0E"
         android:textSize="36sp"
@@ -55,14 +52,4 @@
         app:layout_constraintTop_toBottomOf="@+id/loginButton"
         app:layout_constraintVertical_bias="0.126" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="149dp"
-        android:layout_height="176dp"
-        android:layout_marginTop="408dp"
-        android:layout_marginEnd="24dp"
-        tools:ignore="ContentDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/injured" />
 </androidx.constraintlayout.widget.ConstraintLayout>

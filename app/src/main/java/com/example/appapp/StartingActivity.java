@@ -26,7 +26,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class StartingActivity extends AppCompatActivity {
@@ -34,6 +33,7 @@ public class StartingActivity extends AppCompatActivity {
     Button loginButton,registerButton;
     FirebaseAuth mAuth ;
     private GoogleSignInClient mGoogleSignInClient;
+    static boolean islogged;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -103,8 +103,12 @@ public class StartingActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            if (islogged){
+                                Intent intent= new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);}
+                            else{
                             Intent intent= new Intent(getApplicationContext(), RegisterActivity.class);
-                            startActivity(intent);
+                            startActivity(intent);}
                         } else {
                             Toast.makeText(getApplicationContext(),"some problems has occurred",Toast.LENGTH_LONG).show();
                         }

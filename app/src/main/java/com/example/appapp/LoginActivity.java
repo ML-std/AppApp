@@ -46,8 +46,18 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 email=emailText.getText().toString();
                 password=passwordText.getText().toString();
+                if (email.equals("")){
+                    Toast.makeText(getApplicationContext(),"Fill the email",Toast.LENGTH_SHORT).show();
+
+                } else if (password.equals(""))
+                {
+                    Toast.makeText(getApplicationContext(),"Fill the password",Toast.LENGTH_SHORT).show();
+                }
+
+                else
                 mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -57,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                               @Override
                                                               public void onSuccess(Void aVoid) {
-
                                                                   Intent intent= new Intent(getApplicationContext(),MainActivity.class);
                                                                   startActivity(intent);
                                                               }
@@ -71,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                             });
 
                         }
+                        else Toast.makeText(getApplicationContext(),"invalid password or mail",Toast.LENGTH_SHORT).show();
                     }
                 });
             }

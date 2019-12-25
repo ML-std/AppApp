@@ -21,7 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
-    TextView infoText;
+    TextView infoText, dateText;
     Button makeButton,cancelButton,postponeButton,logoutButton;
     FirebaseAuth mAuth;
     FirebaseUser user;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancelButton);
         postponeButton = findViewById(R.id.postponeButton);
         logoutButton = findViewById(R.id.logoutButton);
+        dateText = findViewById(R.id.dateText);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         user = mAuth.getCurrentUser();
@@ -53,18 +54,26 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
 
                     if (document.exists()) {
-                        System.out.println(document.getData());
-                       String str = document.get("ID").toString();
-                       date=document.get("Date").toString();
-                        System.out.println(str);
-                        info= "welcome " +str;
+                        String str = " ";
+                        try {
+                            str = document.get("Name").toString();
+                            date=document.get("Date").toString();
+                        }
+                        catch (Exception e){
+                        date = " empty date";
+                        }
+
+                        info= "Welcome, " +str;
                         infoText.setText(info);
+                        if (!(date.equals("empty date")))
+                        dateText.setText("Claimed Appointment Date : " + date);
+                        else dateText.setText("You don't have an appointment");
 
                     } else {
-                        Toast.makeText(getApplicationContext(),"some problems has occurred!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Some problems have occurred!",Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(),"some problems has occurred at task.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Some problems have occurred at task",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -72,21 +81,28 @@ public class MainActivity extends AppCompatActivity {
         makeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (date.equals("empty date"))
                 startActivity(MakeAppointmentActivity.class);
+                else Toast.makeText(getApplicationContext(),"You already have an appointment",Toast.LENGTH_SHORT).show();
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!(date.equals("empty date")))
                 startActivity(CancelAppointmentActivity.class);
+                else Toast.makeText(getApplicationContext(),"You don't have an appointment",Toast.LENGTH_SHORT).show();
             }
         });
         postponeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 willPostponed=true;
-                startActivity(CancelAppointmentActivity.class);
+                if (!(date.equals("empty date")))
+                    startActivity(CancelAppointmentActivity.class);
+                else Toast.makeText(getApplicationContext(),"You don't have an appointment",Toast.LENGTH_SHORT).show();
             }
         });
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -98,10 +114,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 }
-   private void startActivity(Class c){
+    void startActivity(Class c){
         //to go to another activity.
         Intent intent = new Intent(getApplicationContext(),c);
         startActivity(intent);
-
     }
 }

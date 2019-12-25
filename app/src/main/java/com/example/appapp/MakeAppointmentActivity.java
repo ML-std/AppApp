@@ -144,7 +144,8 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                String tmp = dayOfMonth+"/"+monthOfYear+"/" + year;
+                int month = monthOfYear +1;
+                String tmp = dayOfMonth+"/"+month+"/" + year;
                 if (isValidDate())
                 appointmentDate.setText(tmp); }
         };

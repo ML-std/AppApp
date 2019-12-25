@@ -36,7 +36,7 @@ public class CancelAppointmentActivity extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
         dateInfoText = findViewById(R.id.dateInfoText);
         cancelButton = findViewById(R.id.cancelButton);
-        dateInfoText.setText(MainActivity.date);
+        dateInfoText.setText( "Your appointment date is : "  + MainActivity.date);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
