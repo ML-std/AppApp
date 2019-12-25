@@ -1,5 +1,5 @@
-//this is the activity that the user needs to choose what they want.
-//they can make appointment,cancel or postpone if they want by clicking the buttons.
+//This is the activity that the user needs to choose what they want.
+//They can make appointment,cancel or postpone if they want by clicking the buttons.
 
 package com.example.appapp;
 
@@ -21,11 +21,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
+    private FirebaseFirestore db;//Database
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
     TextView infoText, dateText;
     Button makeButton,cancelButton,postponeButton,logoutButton;
-    FirebaseAuth mAuth;
-    FirebaseUser user;
-    FirebaseFirestore db;
     String info;
     static boolean willPostponed;
     static String date;
@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 }
-    void startActivity(Class c){
-        //to go to another activity.
+    private void startActivity(Class c){
+        //To go to another activity.
         Intent intent = new Intent(getApplicationContext(),c);
         startActivity(intent);
     }

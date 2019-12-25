@@ -1,6 +1,6 @@
-// the users starts with this page. if they are not logged in,they need to.
-// they can sign in with gmail or register with normal account.at both gmail and register buttons,
-//the user goes to the RegisterActivity.In login button,the user goes to the LoginActivity.
+//The users starts with this page. if they are not logged in,they need to.
+//They can sign in with gmail or register with normal account.at both gmail and register buttons,
+//The user goes to the RegisterActivity.In login button,the user goes to the LoginActivity.
 //If the user is already exists, then they go to the MainActivity.
 
 package com.example.appapp;
@@ -31,7 +31,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class StartingActivity extends AppCompatActivity {
     SignInButton signInButton;
     Button loginButton,registerButton;
-    FirebaseAuth mAuth ;
+    private FirebaseAuth mAuth ;
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override

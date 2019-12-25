@@ -1,5 +1,5 @@
-//the user logs in with their password and mail.
-//if they don't have data or it needs to be updated, it will updated.
+//The user logs in with their password and mail.
+//If they don't have data or it needs to be updated, it will updated.
 //when the user logs in, they go to MainActivity.
 package com.example.appapp;
 
@@ -25,12 +25,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import static com.example.appapp.RegisterActivity.userMap;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText emailText,passwordText;
-    Button loginButton;
+
+    private FirebaseFirestore db;//Database
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private String email,password;
-    private FirebaseFirestore db;
+    EditText emailText,passwordText;
+    Button loginButton;
+    String email,password;
 
 
     @Override

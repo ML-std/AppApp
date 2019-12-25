@@ -1,6 +1,6 @@
-//the user will select a date. If the date is invalid,the user will receive message and
-//they will not use the date which they have just picked. when they pick a valid date and
-// clicked the button,then their data will be updated and they will return to the MainActivity.
+//The user will select a date. If the date is invalid,the user will receive message and
+//They will not use the date which they have just picked. when they pick a valid date and
+//Clicked the button,then their data will be updated and they will return to the MainActivity.
 
 package com.example.appapp;
 
@@ -29,14 +29,14 @@ import java.util.Map;
 import static com.example.appapp.RegisterActivity.userMap;
 
 public class MakeAppointmentActivity extends AppCompatActivity {
-    final Calendar myCalendar = Calendar.getInstance();
+    final private Calendar calendar = Calendar.getInstance();
+    private FirebaseFirestore db;//Database
+    private FirebaseUser user;
     EditText appointmentDate;
-    FirebaseUser user;
-    FirebaseFirestore db;
     Button dateButton;
-    static boolean flag=true;
+    static boolean isValid =true;
     int day,month,year;
-    Calendar date;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +84,14 @@ public class MakeAppointmentActivity extends AppCompatActivity {
 
     }
     private void updateLabel() {
-        //updates the appointmentDate text with the date.
+        //Updates the appointmentDate text with the date.
         String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
-        appointmentDate.setText(sdf.format(myCalendar.getTime()));
+        appointmentDate.setText(sdf.format(calendar.getTime()));
   }
     private boolean isValidDate(){
-        //reads data and returns true if the date which is selected by the user is not matches with
-        //other dates. returns false if the date matches.
+        //Reads data and returns true if the date which is selected by the user is not matches with
+        //Other dates. returns false if the date matches.
         db.collection("Dates").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -99,13 +99,13 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                     try {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         System.out.println(document.get("Date").toString());
-                        flag=true;
+                        isValid =true;
                         if (!((document.get("Date").toString()).equals(appointmentDate.getText().toString()))){
 
-                            flag= true;
+                            isValid = true;
                         }
                         else {
-                            flag=false;
+                            isValid =false;
                             appointmentDate.setText("");
                            Toast.makeText(getApplicationContext(),"Invalid date",Toast.LENGTH_SHORT).show();
                             break;
@@ -119,10 +119,10 @@ public class MakeAppointmentActivity extends AppCompatActivity {
 
             }
         });
-        return flag;
+        return isValid;
     }
-    private boolean updateData(){
-        //updates database using a HashMap.
+    private void updateData(){
+        //Updates database using a HashMap.
         Map<String,Object> dateMap = new HashMap<>();
         dateMap.put("Date",appointmentDate.getText().toString());
         db.collection("Dates").document(user.getUid()).set(dateMap)
@@ -136,13 +136,12 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                 });
         RegisterActivity.userMap.put("Date",appointmentDate.getText().toString());
         db.collection("users").document(user.getUid()).update(userMap);
-        return true;
+
     }
-    public void showDateTimePicker(){
-        //shows date picker and restrains picking date from the past.
-        //updates the appointment date Text.
+    private void showDateTimePicker(){
+        //Shows date picker and restrains picking date from the past.
+        //Updates the appointment date Text.
         final Calendar currentDate = Calendar.getInstance();
-        date = Calendar.getInstance();
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override

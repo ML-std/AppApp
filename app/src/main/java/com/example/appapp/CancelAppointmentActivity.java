@@ -22,8 +22,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CancelAppointmentActivity extends AppCompatActivity {
-    FirebaseUser user;
-    FirebaseFirestore db;
+    private FirebaseFirestore db;//Database
+    private FirebaseUser user;
     TextView dateInfoText;
     Button cancelButton;
 

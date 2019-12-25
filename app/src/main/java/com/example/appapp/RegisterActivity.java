@@ -1,5 +1,5 @@
-//the user needs to fill these blanks = name,surname,ID,mail and password.
-// If the user signed with google,then they don't need to fill mail and password.
+//The user needs to fill these blanks = name,surname,ID,mail and password.
+//If the user signed with google,then they don't need to fill mail and password.
 //When they clicked the button, their data will be added to their database.
 package com.example.appapp;
 
@@ -27,9 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    FirebaseFirestore db;
-    FirebaseAuth mAuth;
-    FirebaseUser user;
+    private FirebaseFirestore db;//Database
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     Button registerButton;
     EditText idText,nameText,surnameText,mailText,passwordText;
