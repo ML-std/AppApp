@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                             date=document.get("Date").toString();
                         }
                         catch (Exception e){
-                        date = " empty date";
+                        date = "empty date";
                         }
 
                         info= "Welcome, " +str;

@@ -69,12 +69,15 @@ public class MakeAppointmentActivity extends AppCompatActivity {
          dateButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-
+                    if (appointmentDate.getText().toString().equals("")){
+                        Toast.makeText(getApplicationContext()," You haven't selected a date",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                      updateData();
                      Toast.makeText(getApplicationContext(),"Appointment has been made",Toast.LENGTH_LONG).show();
                      Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                      startActivity(intent);
-                 }
+                 }}
          });
 
 
@@ -104,15 +107,15 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                         else {
                             flag=false;
                             appointmentDate.setText("");
-                           Toast.makeText(getApplicationContext(),"invalid date",Toast.LENGTH_SHORT).show();
+                           Toast.makeText(getApplicationContext(),"Invalid date",Toast.LENGTH_SHORT).show();
                             break;
                         }
                     }}
                     catch (Exception e){
-                        Toast.makeText(getApplicationContext(),"some problems occurred", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Some problems occurred", Toast.LENGTH_LONG).show();
                     }
                 }
-                else Toast.makeText(getApplicationContext(),"omg",Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getApplicationContext(),"Some problems have occurred",Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -106,7 +106,7 @@ public class StartingActivity extends AppCompatActivity {
                             Intent intent= new Intent(getApplicationContext(), RegisterActivity.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getApplicationContext(),"some problems has occurred",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Some problems has occurred",Toast.LENGTH_LONG).show();
                         }
 
                     }

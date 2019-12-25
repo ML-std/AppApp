@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">AppApp</string>
     <string name="okHint">OK!</string>
-    <string name="name">name</string>
-    <string name="surname">surname</string>
-    <string name="mail">MAIL</string>
-    <string name="password">password</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="mail">Mail</string>
+    <string name="password">Password</string>
     <string name="login">LOGIN</string>
-    <string name="email">email</string>
+    <string name="email">Email</string>
     <string name="welcome">   Welcome to AppApp</string>
     <string name="register">REGISTER</string>
-    <string name="id_number">Id Number</string>
+    <string name="id_number">ID Number</string>
     <string name="make_an_appointment">MAKE AN APPOINTMENT</string>
     <string name="cancel_an_appointment">CANCEL AN APPOINTMENT</string>
     <string name="postpone_an_appointment">POSTPONE AN APPOINTMENT</string>
-    <string name="date">date</string>
-    <string name="date_picked">date picked</string>
+    <string name="date">Date</string>
+    <string name="date_picked">Date picked</string>
     <string name="logout">logout</string>
-    <string name="click_twice">click twice to get Dates</string>
+    <string name="click_twice">Tap twice to open the calendar</string>
     <string name="confirm">CONFIRM</string>
 </resources>

@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (idText.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "fill the ID", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Fill the ID", Toast.LENGTH_SHORT).show();
                 } else{
 
                     id = Long.parseLong(idText.getText().toString());
@@ -90,16 +90,16 @@ public class RegisterActivity extends AppCompatActivity {
                     password = passwordText.getText().toString();
                     //adding data to a HashMap.
                     if (name.equals("")) {
-                        Toast.makeText(getApplicationContext(), "fill the name", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Fill the name", Toast.LENGTH_SHORT).show();
                     } else if (surname.equals("")) {
-                        Toast.makeText(getApplicationContext(), "fill the surname", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Fill the surname", Toast.LENGTH_SHORT).show();
 
                     } else if (mail.equals("")&&user==null) {
-                        Toast.makeText(getApplicationContext(), "fill the mail", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Fill the mail", Toast.LENGTH_SHORT).show();
 
                     }
                     else if (password.equals("")&&user==null) {
-                        Toast.makeText(getApplicationContext(), "fill the mail", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Fill the password", Toast.LENGTH_SHORT).show();
 
                     }
                     else{
