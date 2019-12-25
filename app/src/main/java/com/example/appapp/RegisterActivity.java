@@ -94,11 +94,11 @@ public class RegisterActivity extends AppCompatActivity {
                     } else if (surname.equals("")) {
                         Toast.makeText(getApplicationContext(), "fill the surname", Toast.LENGTH_SHORT).show();
 
-                    } else if (mail.equals("")) {
+                    } else if (mail.equals("")&&user==null) {
                         Toast.makeText(getApplicationContext(), "fill the mail", Toast.LENGTH_SHORT).show();
 
                     }
-                    else if (password.equals("")) {
+                    else if (password.equals("")&&user==null) {
                         Toast.makeText(getApplicationContext(), "fill the mail", Toast.LENGTH_SHORT).show();
 
                     }

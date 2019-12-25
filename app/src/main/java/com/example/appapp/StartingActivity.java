@@ -33,7 +33,6 @@ public class StartingActivity extends AppCompatActivity {
     Button loginButton,registerButton;
     FirebaseAuth mAuth ;
     private GoogleSignInClient mGoogleSignInClient;
-    static boolean islogged;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -103,12 +102,9 @@ public class StartingActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            if (islogged){
-                                Intent intent= new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);}
-                            else{
+
                             Intent intent= new Intent(getApplicationContext(), RegisterActivity.class);
-                            startActivity(intent);}
+                            startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(),"some problems has occurred",Toast.LENGTH_LONG).show();
                         }
