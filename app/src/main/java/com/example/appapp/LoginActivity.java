@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import static com.example.appapp.RegisterActivity.userMap;
@@ -29,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseFirestore db;//Database
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private static boolean flag=false;
+
     EditText emailText,passwordText;
     Button loginButton;
     String email,password;
@@ -64,6 +67,21 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             user=mAuth.getCurrentUser();
+                            db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (!document.exists())
+                                    flag=true;
+                                    else{
+                                        Intent intent= new Intent(getApplicationContext(),MainActivity.class);
+                                        startActivity(intent);
+                                }}}
+                            });
+                            if (flag){
+
+                            user=mAuth.getCurrentUser();
                             db.collection("users").document(user.getUid()).set(userMap)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                               @Override
@@ -80,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
 
-                        }
+                        }}
                         else Toast.makeText(getApplicationContext(),"invalid password or mail",Toast.LENGTH_SHORT).show();
                     }
                 });
