@@ -47,7 +47,7 @@ public class CancelAppointmentActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(),"deletion completed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Appointment successfully cancelled",Toast.LENGTH_SHORT).show();
                             if (MainActivity.willPostponed){
                             Intent intent = new Intent(getApplicationContext(),MakeAppointmentActivity.class);
                             startActivity(intent);

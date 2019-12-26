@@ -107,7 +107,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                         else {
                             isValid =false;
                             appointmentDate.setText("");
-                           Toast.makeText(getApplicationContext(),"Invalid date",Toast.LENGTH_SHORT).show();
+                           Toast.makeText(getApplicationContext(),"The date is already taken",Toast.LENGTH_SHORT).show();
                             break;
                         }
                     }}
